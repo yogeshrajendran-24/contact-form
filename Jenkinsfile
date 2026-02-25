@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Build'){
             steps{
-                sh 'echo "Building the application..."'
+                git branch: "main", url: "https://github.com/yogeshrajendran-24/contact-form.git"
             }
         }
 
