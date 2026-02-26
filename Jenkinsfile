@@ -39,11 +39,12 @@ pipeline {
             steps{
                 sshagent(['ec2-ssh-key']){
                     sh """
-                    ssh -o StrictHostkeyChecking=no ${EC2_HOST} 
-                    '   docker pull ${DOCKER_IMAGE}:latest
+                    ssh -o StrictHostkeyChecking=no ${EC2_HOST} .
+                       docker pull ${DOCKER_IMAGE}:latest
                         docker stop contact-server || true
                         docker rm contact-server || true
-                        docker run -d -p 80:80 --name contact-server ${DOCKER_IMAGE}:latest ' 
+                        docker run -d -p 80:80 --name contact-server ${DOCKER_IMAGE}:latest 
+                        ' 
                         """
                 }
 
