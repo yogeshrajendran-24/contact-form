@@ -15,18 +15,24 @@ pipeline {
 
         stage('Build Docker Image'){
             steps{
+                script{
                 dockerImage = docker.build("${DOCKER_IMAGE}:${BUILD_NUMBER}")
+                }
             }
         }
 
         stage('Push Image ti DockerHub'){
             steps{
-                
+                script{
+                    docker.withRegistry('', 'dockerhub-creds') {
                     dockerImage.push("${BUILD_NUMBER}")
                     dockerImage.push("latest")
+                     }
                 }
-            }
+             }
+        }
 
+        
         stage('Deploy to EC2'){
             steps{
                 sshagent(['ec2-ssh-key']){
