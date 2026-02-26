@@ -5,7 +5,7 @@ pipeline {
 
     environment{
         DOCKER_IMAGE = "yogeshrajendran/contact-server"
-        EC2_HOST = "100.50.182.128"
+        EC2_HOST = "ubuntu@100.50.182.128"
     }
 
     stages{
