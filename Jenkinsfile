@@ -21,12 +21,11 @@ pipeline {
 
         stage('Push Image ti DockerHub'){
             steps{
-                docker.withRegistry('', 'dockerhub-creds') {
+                
                     dockerImage.push("${BUILD_NUMBER}")
                     dockerImage.push("latest")
                 }
             }
-        }
 
         stage('Deploy to EC2'){
             steps{
@@ -36,7 +35,7 @@ pipeline {
                     '   docker pull ${DOCKER_IMAGE}:latest
                         docker stop contact-server || true
                         docker rm contact-server || true
-                        docker run -d -p 80:5000 --name contact-server ${DOCKER_IMAGE}:latest ' 
+                        docker run -d -p 80:80 --name contact-server ${DOCKER_IMAGE}:latest ' 
                         """
                 }
 
