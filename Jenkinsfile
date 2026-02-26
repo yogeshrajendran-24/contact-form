@@ -21,15 +21,7 @@ pipeline {
 
         stage('Deploy'){
             steps{
-                sshagent(['ec2-ssh-key']) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no ubuntu@${EC2_HOST} '
-                      docker pull ${DOCKER_IMAGE}:latest &&
-                      docker stop contact-server || true &&
-                      docker rm contact-server || true &&
-                      docker run -d --name contact-server -p 80:80 ${DOCKER_IMAGE}:latest
-                    '
-                    """
+                sh 'echo "Deploying the application..."'
             }
         }
     }
